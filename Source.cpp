@@ -23,7 +23,7 @@ void shape_Detection_and_Recognition()
 		if (frame.empty())
 			cout << "Cette image est vide !" << endl;
 
-		resize(frame, frame, Size(700, 700), 0, 0, INTER_LINEAR); // Je resize la taille des fenetres à ma convenance
+		resize(frame, frame, Size(700, 700), 0, 0, INTER_LINEAR); // Je resize la taille des fenetres Ã  ma convenance
 
 		// Partie 1 :
 
@@ -39,11 +39,11 @@ void shape_Detection_and_Recognition()
 		dilate(frame_canny, frame_contour, kernel, Point(3, 3));
 
 
-		// Question 4 : Détecter les contours
+		// Question 4 : DÃ©tecter les contours
 		findContours(frame_contour, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE, Point(0, 0));
 
 
-		// Question 5 : Afficher les contours détectés 
+		// Question 5 : Afficher les contours dÃ©tectÃ©s 
 		
 		Mat drawing = frame;
 		for (size_t i = 0; i < contours.size(); i++)
@@ -81,10 +81,10 @@ void shape_Detection_and_Recognition()
 					color2 = Scalar(0, 0, 255);
 				}
 
-				// Question 4 : Carré et Rectangle
+				// Question 4 : CarrÃ© et Rectangle
 				else if (contours2[i].size() == 4)
 				{
-					// Si la largeur du quadrilatère est = à sa longueur, alors c'est un carré
+					// Si la largeur du quadrilatÃ¨re est = Ã  sa longueur, alors c'est un carrÃ©
 					if (boundingRect(contours2[i]).width == boundingRect(contours2[i]).height)
 					{
 						shape = "carre";
@@ -123,39 +123,7 @@ void shape_Detection_and_Recognition()
 
 
 
-
-void Optical_Flow_Tracking_and_GUI()
-{
-	// Parties 3 :
-
-	VideoCapture cap("video4.MOV");
-	Mat frame;
-	vector< Mat > buffer; // Le Buffer
-	
-	while (true)
-	{
-
-		cap >> frame;
-		if (frame.empty())
-			cout << "Cette image est vide !" << endl;
-
-		resize(frame, frame, Size(700, 700), 0, 0, INTER_LINEAR); // Je resize la taille des fenetres à ma convenance
-
-
-		imshow("video_source", frame);
-
-
-		if (waitKey(40) == 27) // C'est le code ASCII de la touche "Echap" du clavier
-			break;
-	}
-
-}
-
-
-
-
 int main()
 {
 	shape_Detection_and_Recognition(); // Parties 1 et 2
-	Optical_Flow_Tracking_and_GUI(); // Parties 3 et 4
 }
